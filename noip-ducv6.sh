@@ -19,7 +19,7 @@ update_ip () {
         echo $out
 
         if [[ $out == nochg* ]] || [[ $out == good* ]]; then
-            lastaddr=addr
+            lastaddr=$addr
         elif [[ $out == 911 ]]; then
             echo "911 response, waiting 30 minutes"
             sleep 25m
@@ -30,6 +30,6 @@ update_ip () {
 }
 
 update_ip
-while sleep 5; do
+while sleep 5m; do
     update_ip
 done
