@@ -11,7 +11,7 @@ agent="Personal noip-ducv6/linux-v1.0"
 lastaddr=''
 
 update_ip () {
-    addr=$(ip addr show dev $interface | sed -e's/^.*inet6 \([^ ]*\)\/.*scope global.*$/\1/;t;d')
+    addr=$(ip -6 addr show dev $interface | sed -e'/inet6/,/scope global/s/^.*inet6 \([^ ]*\)\/.*scope global.*$/\1/;t;d')
     if [[ $lastaddr != $addr ]]; then
         echo "updating to $addr"
         out=$(curl --get --silent --show-error --user-agent "$agent" --user "$user:$pass" -d "hostname=$hostname" -d "myipv6=$addr" $url)
